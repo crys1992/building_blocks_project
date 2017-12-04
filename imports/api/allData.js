@@ -6,8 +6,8 @@ if (Meteor.isServer) {
   Meteor.publish('allData', function allDataPublication() {
 
     return [
-        Chemicals.find({});
-        Sciencing.find({});
+        Chemicals.find({}),
+        Sciencing.find({})
     ]
   });
 }

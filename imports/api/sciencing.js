@@ -30,6 +30,6 @@ Meteor.methods({
         updatedAt: new Date(),
       }
     });
-    return currentSciencing;
+    return currentSciencing.insertedId;
   }
 })

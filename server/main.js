@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import SerialPort from 'serialport';
 import chemicals from '../imports/api/chemicals.js'
 import sciencing from '../imports/api/sciencing.js'
+import allData from '../imports/api/allData.js'
+let currentSciencing = null;
 
 const Readline = SerialPort.parsers.Readline;
 const parser = new Readline();
@@ -11,33 +13,33 @@ function addSciencing(data) {
   // console.log(data);
   // split into an array 
   let dataArr  = data.split(",");
-  console.log(dataArr);
+//  console.log(dataArr);
 
 
   if (dataArr.length > 1) {
 
 
-    let box1corner1Index = 1;
-    let box1corner2Index = 2;
-    let box1corner3Index = 3;
-    let box1corner4Index = 4;
+    let box1corner1Index = 0;
+    let box1corner2Index = 1;
+    let box1corner3Index = 2;
+    let box1corner4Index = 3;
 
-    let box2corner1Index = 5;
-    let box2corner2Index = 6;
-    let box2corner3Index = 7;
-    let box2corner4Index = 8;
+    let box2corner1Index = 4;
+    let box2corner2Index = 5;
+    let box2corner3Index = 6;
+    let box2corner4Index = 7;
 
-    let box3corner1Index = 9;
-    let box3corner2Index = 10;
-    let box3corner3Index = 11;
-    let box3corner4Index = 12;
+    let box3corner1Index = 8;
+    let box3corner2Index = 9;
+    let box3corner3Index = 10;
+    let box3corner4Index = 11;
 
-    let element1NumberIndex = 13;
-    let element2NumberIndex = 14; 
-    let element3NumberIndex = 15; 
+    let element1NumberIndex = 12;
+    let element2NumberIndex = 13; 
+    let element3NumberIndex = 14; 
 
-    let stirIndex = 16; 
-    let flameIndex = 17;
+    let stirIndex = 15; 
+    let flameIndex = 16;
     
 
 
@@ -98,67 +100,72 @@ function addSciencing(data) {
 
 
 //ELEMENT ATOM COUNT 
-
+    let element1Count;
+    let element2Count;
+    let element3Count;
     //element 1 count
     let element1Arr = dataArr[element1NumberIndex];
     if (element1Arr[0] < 600 && element1Arr[0] > 200){
-    let element1Count = "2"
+    element1Count = "2"
     }
     else if (element1Arr[0] > 600){
-    let element1Count = "3"
+    element1Count = "3"
     }
     else{
-    let element1Count = "1"
+    element1Count = "1"
     }
 
      //element 2 count
     let element2Arr = dataArr[element2NumberIndex];
+  //  console.log(element2Arr);
+
     if (element2Arr[0] < 600 && element2Arr[0] > 200){
-    let element2Count = "2"
+    element2Count = "2"
     }
     else if (element2Arr[0] > 600){
-    let element2Count = "3"
+    element2Count = "3"
     }
     else{
-    let element2Count = "1"
+    element2Count = "1"
     }
 
 
     //element 3 count
     let element3Arr = dataArr[element3NumberIndex];
+
     if (element3Arr[0] < 600 && element3Arr[0] > 200){
-    let element3Count = "2"
+    element3Count = "2"
     }
     else if (element3Arr[0] > 600){
-    let element3Count = "3"
+    element3Count = "3"
     }
     else{
-    let element3Count = "1"
+    element3Count = "1"
     }
 
 //STIR
+    let stir;
     let stirArr = dataArr[stirIndex];
 
     if (element1Arr[0] > 500){
-    let stir = "On"
+    stir = "1"
     }
     else {
-    let stir = "Off"
+    stir = "0"
     }
 
     
 
 //FLAME
-
+    let light; 
     let flameArr = dataArr[flameIndex];
-    console.log(flameArr);
 
 
     if (flameArr[0] > 500){
-    let light = "On"
+    light = "1"
     }
     else {
-    let light = "Off"
+    light = "0"
     }
 
 
@@ -167,8 +174,10 @@ function addSciencing(data) {
     // console.log(text, decValue, hexValue, octValue, binValue);
 
     // insert into the database so that the front end will update each time you press the Arduino reset button
-    Meteor.call('sciencing.insert', element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light);
+  currentSciencing =  Meteor.call('sciencing.upsert', currentSciencing, element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light);
   }
+
+  //console.log(currentSciencing);
 }
 
 var port = new SerialPort('/dev/cu.usbmodem1411', {

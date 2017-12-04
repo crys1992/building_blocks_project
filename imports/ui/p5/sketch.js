@@ -25,6 +25,7 @@ export default function sketch (p5) {
     p5.rect(0, 0, p5.width, p5.height);
     // draw the incoming ascii from serial
     p5.fill(r, g, b);
+    console.log(sciencing.element1);
     p5.text(sciencing.element1, p5.width/2-30, p5.height/2-20);
   };
 
@@ -33,6 +34,7 @@ export default function sketch (p5) {
     if (props.sciencing){
       // get the new ascii object
       sciencing = props.sciencing;
+     // console.log(sciencing);
       // increment the grid position
    //   if (gridIndex < gridMax) {
     //    gridIndex++;
