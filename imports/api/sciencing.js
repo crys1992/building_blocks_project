@@ -13,9 +13,10 @@ if (Meteor.isServer) {
 
 // http://docs.meteor.com/api/collections.html#Mongo-Collection-upsert
 Meteor.methods({
-  'sciencing.insert'(telement1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light) {
- 
-    Sciencing.upsert(
+  'sciencing.upsert'(id, element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light) {
+    var currentSciencing = Sciencing.upsert({
+      _id:id
+    },
     {
       $set: {
         element1: element1Value,
@@ -24,10 +25,11 @@ Meteor.methods({
         element1Count: element1Count,
         element2Count: element2Count,
         element3Count: element3Count;
-        stir : stir
+        stir : stir,
         light : light, 
         updatedAt: new Date(),
       }
     });
+    return currentSciencing;
   }
 })

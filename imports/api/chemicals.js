@@ -13,21 +13,12 @@ if (Meteor.isServer) {
 
 // http://docs.meteor.com/api/collections.html#Mongo-Collection-upsert
 Meteor.methods({
-  'chemicals.insert'(element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light) {
+  'chemicals.insert'(name, atoms) {
   
-    Chemicals.insert(
-    {
-      $set: {
-        element1: element1Value,
-        element2: element2Value,
-        element3: element3Value,
-        element1Count: element1Count,
-        element2Count: element2Count,
-        element3Count: element3Count;
-        stir : stir
-        light : light, 
-        updatedAt: new Date(),
-      }
+    Chemicals.insert({
+      name: name,
+      atoms: atoms,
+      updatedAt: new Date(),
     });
   }
 })

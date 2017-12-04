@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import P5Wrapper from 'react-p5-wrapper';
 import sketch from './p5/sketch.js';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Ascii } from '../api/ascii.js';
+import { Sciencing } from '../api/sciencing.js';
+import { Chemicals } from '../api/chemicals.js';
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      ascii: {},
+      sciencing: {},
+      chemicals: [],
     };
  
   }
@@ -21,27 +23,30 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>super-serial-app</h1>
+          <h1>building_blocks_project</h1>
         </header>
         {/*pass the p5 sktech file into the React wrapper
         also pass the ascii prop which will updated based on withTracker below*/}
-        <P5Wrapper sketch={sketch} ascii={this.props.ascii} />
+        <P5Wrapper sketch={sketch} sciencing={this.props.sciencing} chemicals={this.props.chemicals} />
       </div>
     );
   }
 }
 
 App.defaultProps = {
-  ascii: {text:"."},
+  sciencing: {},
+  chemicals: [],
 };
 
 App.propTypes = {
-  ascii: PropTypes.object.isRequired,
+  sciencing: PropTypes.object.isRequired,
+  chemicals: PropTypes.array.isRequired,
 };
 
 export default withTracker(props => {
-  Meteor.subscribe('ascii');
+  Meteor.subscribe('allData');
   return {
-    ascii: Ascii.find({}, { sort: { updatedAt: -1 } }).fetch()[0],
+    sciencing: Sciencing.find({}, { sort: { updatedAt: -1 } }).fetch()[0],
+    chemicals: Chemicals.find({}).fetch(),
   };
 })(App);
