@@ -24,7 +24,7 @@ Meteor.methods({
         element3: element3Value,
         element1Count: element1Count,
         element2Count: element2Count,
-        element3Count: element3Count;
+        element3Count: element3Count,
         stir : stir,
         light : light, 
         updatedAt: new Date(),

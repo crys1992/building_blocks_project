@@ -11,7 +11,7 @@ function addSciencing(data) {
   // console.log(data);
   // split into an array 
   let dataArr  = data.split(",");
-  // console.log(dataArr);
+  console.log(dataArr);
 
 
   if (dataArr.length > 1) {
@@ -44,63 +44,63 @@ function addSciencing(data) {
 //BOX ONE 
 
     //box1corner1
-    let box1corner1Arr = dataArr[box1corner1Index].trim();
+    let box1corner1Arr = dataArr[box1corner1Index];
     let box1corner1Value = box1corner1Arr[0]
     //box1corner2
-    let box1corner2Arr = dataArr[box1corner2Index].trim();
+   // console.log(box1corner2Index, dataArr[box1corner2Index]);
+    let box1corner2Arr = dataArr[box1corner2Index];
     let box1corner2Value = box1corner2Arr[0]
     //box1corner3
-    let box1corner3Arr = dataArr[box1corner3Index].trim();
+    let box1corner3Arr = dataArr[box1corner3Index];
     let box1corner3Value = box1corner3Arr[0]
     //box1corner4
-    let box1corner4Arr = dataArr[box1corner4Index].trim();
+    let box1corner4Arr = dataArr[box1corner4Index];
     let box1corner4Value = box1corner4Arr[0]
     
-    let element1Value = string.concat(box1corner1Value,box1corner2Value,box1corner3Value,box1corner4Value)
+    let element1Value = [box1corner1Value,box1corner2Value,box1corner3Value,box1corner4Value].join('');
 
 
 //BOX TWO
 
     //box2corner1
-    let box2corner1Arr = dataArr[box2corner1Index].trim();
+    let box2corner1Arr = dataArr[box2corner1Index];
     let box2corner1Value = box2corner1Arr[0]
     //box2corner2
-    let box2corner2Arr = dataArr[box2corner2Index].trim();
+    let box2corner2Arr = dataArr[box2corner2Index];
     let box2corner2Value = box2corner2Arr[0]
     //box2corner3
-    let box2corner3Arr = dataArr[box2corner3Index].trim();
+    let box2corner3Arr = dataArr[box2corner3Index];
     let box2corner3Value = box2corner3Arr[0]
     //box2corner4
-    let box2corner4Arr = dataArr[box2corner4Index].trim();
+    let box2corner4Arr = dataArr[box2corner4Index];
     let box2corner4Value = box2corner4Arr[0]
     
-    let element2Value = string.concat(box2corner1Value,box2corner2Value,box2corner3Value,box2corner4Value)
+    let element2Value = [box2corner1Value,box2corner2Value,box2corner3Value,box2corner4Value].join('');
 
 
 //BOX THREE
 
     //box3corner1
-    let box3corner1Arr = dataArr[box3corner1Index].trim();
+    let box3corner1Arr = dataArr[box3corner1Index];
     let box3corner1Value = box3corner1Arr[0]
     //box1corner2
-    let box3corner2Arr = dataArr[box3corner2Index].trim();
+    let box3corner2Arr = dataArr[box3corner2Index];
     let box3corner2Value = box3corner2Arr[0]
     //box1corner3
-    let box3corner3Arr = dataArr[box3corner3Index].trim();
+    let box3corner3Arr = dataArr[box3corner3Index];
     let box3corner3Value = box3corner3Arr[0]
     //box1corner4
-    let box3corner4Arr = dataArr[box3corner4Index].trim();
+    let box3corner4Arr = dataArr[box3corner4Index];
     let box3corner4Value = box3corner4Arr[0]
     
-    let element3Value = string.concat(box3corner1Value,box3corner2Value,box3corner3Value,box3corner4Value)
+    let element3Value = [box3corner1Value,box3corner2Value,box3corner3Value,box3corner4Value].join('');
 
-    let element1
 
 
 //ELEMENT ATOM COUNT 
 
     //element 1 count
-    let element1Arr = dataArr[element1NumberIndex].trim();
+    let element1Arr = dataArr[element1NumberIndex];
     if (element1Arr[0] < 600 && element1Arr[0] > 200){
     let element1Count = "2"
     }
@@ -112,7 +112,7 @@ function addSciencing(data) {
     }
 
      //element 2 count
-    let element2Arr = dataArr[element2NumberIndex].trim();
+    let element2Arr = dataArr[element2NumberIndex];
     if (element2Arr[0] < 600 && element2Arr[0] > 200){
     let element2Count = "2"
     }
@@ -125,7 +125,7 @@ function addSciencing(data) {
 
 
     //element 3 count
-    let element3Arr = dataArr[element3NumberIndex].trim();
+    let element3Arr = dataArr[element3NumberIndex];
     if (element3Arr[0] < 600 && element3Arr[0] > 200){
     let element3Count = "2"
     }
@@ -137,7 +137,7 @@ function addSciencing(data) {
     }
 
 //STIR
-    let stirArr = dataArr[stirIndex].trim();
+    let stirArr = dataArr[stirIndex];
 
     if (element1Arr[0] > 500){
     let stir = "On"
@@ -149,7 +149,10 @@ function addSciencing(data) {
     
 
 //FLAME
-    let flameArr = flameArr[flameIndex].trim();
+
+    let flameArr = dataArr[flameIndex];
+    console.log(flameArr);
+
 
     if (flameArr[0] > 500){
     let light = "On"
