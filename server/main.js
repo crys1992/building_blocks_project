@@ -13,7 +13,7 @@ function addSciencing(data) {
   // console.log(data);
   // split into an array 
   let dataArr  = data.split(",");
-//  console.log(dataArr);
+ // console.log(dataArr);
 
 
   if (dataArr.length > 1) {
@@ -103,51 +103,53 @@ function addSciencing(data) {
     let element1Count;
     let element2Count;
     let element3Count;
-    //element 1 count
+  
+    //element 1 count  
     let element1Arr = dataArr[element1NumberIndex];
-    if (element1Arr[0] < 600 && element1Arr[0] > 200){
+    //console.log(element1Arr);
+    if (element1Arr < 800 && element1Arr > 200){
     element1Count = "2"
     }
-    else if (element1Arr[0] > 600){
+    else if (element1Arr > 800){
     element1Count = "3"
     }
     else{
     element1Count = "1"
     }
+   // console.log(element1Count);
 
      //element 2 count
     let element2Arr = dataArr[element2NumberIndex];
-  //  console.log(element2Arr);
-
-    if (element2Arr[0] < 600 && element2Arr[0] > 200){
+    if (element2Arr < 800 && element2Arr > 200){
     element2Count = "2"
     }
-    else if (element2Arr[0] > 600){
+    else if (element2Arr > 800){
     element2Count = "3"
     }
     else{
     element2Count = "1"
     }
-
+   // console.log(element2Count);
 
     //element 3 count
     let element3Arr = dataArr[element3NumberIndex];
 
-    if (element3Arr[0] < 600 && element3Arr[0] > 200){
+    if (element3Arr < 800 && element3Arr > 200){
     element3Count = "2"
     }
-    else if (element3Arr[0] > 600){
+    else if (element3Arr > 800){
     element3Count = "3"
     }
     else{
     element3Count = "1"
     }
+   // console.log(element3Count);
 
 //STIR
     let stir;
     let stirArr = dataArr[stirIndex];
-
-    if (element1Arr[0] > 500){
+   // console.log(stirArr);
+    if (stirArr > 300){
     stir = "1"
     }
     else {
@@ -159,9 +161,9 @@ function addSciencing(data) {
 //FLAME
     let light; 
     let flameArr = dataArr[flameIndex];
-
-
-    if (flameArr[0] > 500){
+    //console.log(flameArr);
+    //console.log(flameArr);
+    if (flameArr > 100){
     light = "1"
     }
     else {
@@ -171,14 +173,25 @@ function addSciencing(data) {
 
 
 
-    // console.log(text, decValue, hexValue, octValue, binValue);
+  
+  
+  
+    currentSciencing =  Meteor.call('sciencing.upsert', currentSciencing, element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light);
 
-    // insert into the database so that the front end will update each time you press the Arduino reset button
-  currentSciencing =  Meteor.call('sciencing.upsert', currentSciencing, element1Value, element2Value, element3Value, element1Count, element2Count, element3Count, stir, light);
-  }
-
-  //console.log(currentSciencing);
+   // console.log(currentSciencing);
+    }
 }
+
+Meteor.methods({
+    'send.id'(id){
+    console.log(id);
+    Meteor.call('sciencing.update.finish', currentSciencing, new Date());
+    currentSciencing = null;
+
+    }
+
+
+})
 
 var port = new SerialPort('/dev/cu.usbmodem1411', {
   baudRate: 9600

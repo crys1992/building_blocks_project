@@ -19,15 +19,21 @@ class App extends Component {
  
   }
 
+  sendId(_id){
+
+    console.log('App.jsx received name', _id);
+    Meteor.call('send.id',_id);
+  }
+
+
+
   render() {
     return (
       <div className="container">
-        <header>
-          <h1>building_blocks_project</h1>
-        </header>
+       
         {/*pass the p5 sktech file into the React wrapper
         also pass the ascii prop which will updated based on withTracker below*/}
-        <P5Wrapper sketch={sketch} sciencing={this.props.sciencing} chemicals={this.props.chemicals} />
+        <P5Wrapper sketch={sketch} sendId={this.sendId} sciencing={this.props.sciencing} chemicals={this.props.chemicals} />
       </div>
     );
   }

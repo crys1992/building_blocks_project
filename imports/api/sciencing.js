@@ -7,7 +7,7 @@ import { check } from 'meteor/check';
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('sciencing', function sciencingPublication() {
-    return Sciencing.find({});
+    return Sciencing.find({finish:{'$exists':false}});
   });
 }
 
@@ -30,6 +30,23 @@ Meteor.methods({
         updatedAt: new Date(),
       }
     });
-    return currentSciencing.insertedId;
+
+    if (currentSciencing.insertedId){
+
+      return currentSciencing.insertedId;
+    } else {
+      return id;
+    }
+  },
+  'sciencing.update.finish'(id,finish) {
+      Sciencing.update({
+        _id: id
+      },
+      {
+      $set: {
+        finish: finish, 
+        updatedAt: new Date(),
+      }
+    });
   }
 })
